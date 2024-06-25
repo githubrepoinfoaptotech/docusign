@@ -9,8 +9,11 @@ import { Form, Formik, FormikProps, FormikValues, ErrorMessage } from "formik";
 import * as yup from "yup"
 import Axios from "../../configs/AxiosConfig";
 import { AxiosError, AxiosResponse } from "axios";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Notify } from "notiflix";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../redux/store";
+import { loggedinReducer } from "../../redux/slicers/authSlice";
 
 const theme = createTheme();
 
@@ -22,7 +25,8 @@ interface IloginValues {
 
 const Login: React.FC = () => {
 
-  // const navigate=useNavigate();
+  const navigate=useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
 
   const handleSubmit = (values: FormikValues) => {
     console.log(values);
@@ -30,7 +34,8 @@ const Login: React.FC = () => {
       console.log(data.data);
       if(data.data.status){
         Notify.success(data.data.message);
-        // setTimeout(()=>navigate("/dashboard"),500);
+        dispatch(loggedinReducer({token:(data.data.token as string),isLoggedin:true}));
+        setTimeout(()=>navigate("/pages/dashboard"),500);
       }
     }).catch((err:AxiosError)=>{
       console.log(err);

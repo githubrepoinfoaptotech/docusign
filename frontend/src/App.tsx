@@ -5,6 +5,8 @@ import Login from './pages/login'
 import PdfViewer from './pages/pdf'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Signup from './pages/signup'
+import ProdectedLayout from './components/layouts/prodectedLayout'
+import Dashboard from './pages/dashboard'
 
 
 
@@ -18,6 +20,10 @@ function App() {
             <Route path='/' element={<PdfViewer path='/input.pdf' />} />
             <Route path='login' element={<Login />} />
             <Route path='signup' element={<Signup />} />
+          </Route>
+
+          <Route path='/pages/' element={<ProdectedLayout />}>
+            <Route path='dashboard' element={<Dashboard/>} />
           </Route>
 
         </Routes>
