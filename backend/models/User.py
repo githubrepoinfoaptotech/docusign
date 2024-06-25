@@ -17,8 +17,9 @@ class User(db.Model):
     password: Mapped[str] = mapped_column(type_=String(250), nullable=False)
     fullname: Mapped[str] = mapped_column(type_=String(250), nullable=False)
     initial: Mapped[str] = mapped_column(type_=String(250), nullable=False)
-    isVerified:Mapped[bool] = mapped_column(type_=Boolean, nullable=False,default=False)
-    verifyId: Mapped[str] = mapped_column(type_=String(40),nullable=True)
+    isVerified: Mapped[bool] = mapped_column(type_=Boolean, nullable=False,default=False)
+    verifyId: Mapped[str] = mapped_column(type_=String(40), nullable=True)
+    otp: Mapped[int] = mapped_column(type_=Integer, nullable=True)
     createdAt = mapped_column(type_=DateTime, default=datetime.utcnow)
     updatedAt = mapped_column(type_=DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
@@ -34,7 +35,8 @@ class User(db.Model):
             "fullname": self.fullname,
             "initial": self.initial,
             "isVerified":self.isVerified,
-            "verifyId":self.verifyId
+            "verifyId":self.verifyId,
+            "otp":self.otp
         }
 
 

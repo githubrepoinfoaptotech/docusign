@@ -1,6 +1,7 @@
 from flask import Blueprint,request
 from service import user_service
-from utils.functions.validation_models import validate_request, Register, Login
+from utils.middlewares import auth
+from utils.functions.validation_models import validate_request, Register, Login, EDITUSER
 userRoutes = Blueprint("userRoutes",__name__)
 
 
@@ -9,7 +10,6 @@ userRoutes = Blueprint("userRoutes",__name__)
 def register():
     data = request.get_json()
     return user_service.register(data)
-
 
 @userRoutes.post("/login")
 @validate_request(Login)
@@ -23,4 +23,9 @@ def verify_user():
     return user_service.verify_user(data)
 
 
-
+@userRoutes.post("/edit_user")
+@auth.check_auth
+@validate_request(EDITUSER)
+def edit_user():
+    data = request.get_json()
+    return user_service.edit_user(data)

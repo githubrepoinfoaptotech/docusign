@@ -21,5 +21,16 @@ def add_sign(data):
         return make_response({"message": "Error Happend", "status": False})
 
 
-def edit_sign():
-    pass
+def edit_sign(data):
+    try:
+        sign = Signature.query.filter_by(user_id=UUID(g.local_data.get("user_id"))).first()
+        if sign:
+            sign.font_name=data['font_name']
+            sign.signature_name=data['signature_name']
+            sign.initial_name=data['initial_name']
+            db.session.commit()
+        else:
+            return make_response(jsonify({"message": "Invalid Action", "status": False}), 500)
+    except Exception as e:
+        print(e)
+        return make_response(jsonify({"message": "Invalid Action", "status": False}),500)
