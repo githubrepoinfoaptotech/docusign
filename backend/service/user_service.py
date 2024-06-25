@@ -21,6 +21,9 @@ def register(data):
         # adding to_id to documents if document sent to this new user
         db.session.query(Document).filter_by(to=data["username"]).update({"to_id": new_user.id})
         db.session.commit()
+        new_user.verifyId = str(new_user.id)
+        db.session.commit()
+        verifyid=str(new_user.id)
         mylink="https://infoaptotech.com"
         email_content = render_template(
                 'email_verification_template.html',
@@ -41,11 +44,23 @@ def login(data):
     user_data = User.query.filter_by(username=data["username"]).first()
     if user_data:
         user = user_data.to_dict()
-        if check_password_hash(user["password"], data["password"]):
-            token = generate_token({"user_id": str(user["id"]), "name": user["fullname"]})
-            return make_response(jsonify({"message": "Logged in", "token": token, "status": True}), 200)
+        if(user['isVerified']==True):
+            if check_password_hash(user["password"], data["password"]):
+                token = generate_token({"user_id": str(user["id"]), "name": user["fullname"]})
+                return make_response(jsonify({"message": "Logged in", "token": token, "status": True}), 200)
+            else:
+                return make_response(jsonify({"message": "Password Missmatch", "status": False}), 423)
         else:
-            return make_response(jsonify({"message": "Password Missmatch", "status": False}), 423)
+            return make_response(jsonify({"message": "Email Not Verified", "status": False}), 500)
     else:
         return make_response(jsonify({"message": "User Not Exists Please Register", "status": False}), 406)
 
+def verify_user(data):
+    user_data = User.query.filter_by(verifyId=data["token"]).first()
+    if user_data:
+        user_data.verifyId=None
+        user_data.isVerified=True
+        db.session.commit()
+        return make_response(jsonify({"message": "Success","status": True}), 200)
+    else:
+        return make_response(jsonify({"message": "User Not Exists Please Register", "status": False}), 406)

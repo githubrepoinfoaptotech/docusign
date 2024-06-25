@@ -17,4 +17,10 @@ def login():
     data = request.get_json()
     return user_service.login(data)
 
+@userRoutes.post("/verify_user")
+def verify_user():
+    data = request.get_json()
+    return user_service.verify_user(data)
+
+
 
