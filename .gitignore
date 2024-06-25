@@ -1,7 +1,6 @@
 __pycache__
 node_modules
-venv
-/backend/.env
 myev
 documaildata.txt
-backend/.env
+/backend/.env
+
