@@ -1,11 +1,11 @@
 from models.User import User
-from flask import make_response, jsonify
+from flask import make_response, jsonify,render_template
 from database.db import db
 from werkzeug.security import check_password_hash
 from utils.functions.jwt_functions import generate_token
 from models.Document import Document
 from uuid import UUID
-
+from utils.functions import mailfunctions
 
 def register(data):
     user = User.query.filter_by(username=data["username"]).first()
@@ -21,7 +21,19 @@ def register(data):
         # adding to_id to documents if document sent to this new user
         db.session.query(Document).filter_by(to=data["username"]).update({"to_id": new_user.id})
         db.session.commit()
-
+        mylink="https://infoaptotech.com"
+        email_content = render_template(
+                'email_verification_template.html',
+                name=data["fullname"],
+                sitename="Infoapto",
+                link=mylink
+            )
+        html=email_content
+        subject = "Registration Successfull!"
+        to_address = data["username"]
+        receiver_username = data["fullname"]
+        # Send the email and store the response
+        mailfunctions.send_verification_email(subject, html, to_address, receiver_username)
         return make_response(jsonify({"message": "User Created Successfully", "status": True}), 201)
 
 

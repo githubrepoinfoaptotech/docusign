@@ -39,3 +39,6 @@ with app.app_context():
 
 
 
+# Remove the if __name__ == '__main__' block
+if __name__ == '__main__':
+    app.run(debug=True, port=8080)
