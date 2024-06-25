@@ -1,0 +1,16 @@
+body{
+    /* background-image: url("/digita_sign.jpg"); */
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.signature {
+    font-family: 'Brush Script MT', cursive, 'Lucida Handwriting', 'Comic Sans MS', sans-serif; /* Choose a cursive or handwritten font */
+    font-size: 2em; /* Adjust size as needed */
+    color: #333; /* Dark color for ink-like appearance */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Slight shadow for depth */
+    letter-spacing: 0.5px; /* Slight spacing for handwritten feel */
+    transform: rotate(-2deg); /* Slight tilt for more realistic look */
+    animation: draw 5s ease-in-out forwards;
+}
