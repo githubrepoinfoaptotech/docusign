@@ -26,7 +26,7 @@
         a {
             text-decoration: none;
             background-color: #04376e;
-            color: #2ba7d8;
+            color: #fefefe;
             padding: 10px 20px;
             border-radius: 5px;
             display: inline-block;
@@ -43,9 +43,8 @@
         <h1>Verify Your Email Address</h1>
         <p>Dear {{name}},</p>
         <p>Welcome to {{sitename}}! We're excited to have you as part of our community. To complete your registration and ensure your email address is valid, please follow the instructions below:</p>
-        <p>Click on the following link to verify your email address:</p>
-        <p><a class="mycalss" href={{link}}>Verify Email</a></p>
-        <p>If you are unable to click on the link above, please copy and paste the URL into your web browser.</p>
+        <p>Use the following OTP to verify your email address:</p>
+        <p><a>{{otp}}</a></p>
         <p>Thank you for choosing {{sitename}}! We're committed to providing you with a great experience.</p>
         <p>If you did not register for {{sitename}}, please disregard this email.</p>
         <p class="signature">Sincerely,<br>The {{sitename}} Team</p>

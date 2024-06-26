@@ -54,7 +54,18 @@ class Register(BaseModel):
         else:
             raise ValueError('"Initial" String Must be 1 or 2 letters.')
 
+class EDITUSER(BaseModel):
+    fullname: str
+    initial: str
 
+    @field_validator("initial")
+    @classmethod
+    def initial_check(cls, value: str):
+        if len(value) == 2 or len(value) == 1:
+            return value
+        else:
+            raise ValueError('"Initial" String Must be 1 or 2 letters.')
+        
 class Login(BaseModel):
     username: EmailStr
     password: str
@@ -118,3 +129,17 @@ class AddDocument(BaseModel):
             raise ValueError(f"Invalid JSON format: {e}")
 
         return values
+
+
+class EditSign(BaseModel):
+    font_name: str
+    signature_name: str
+    initial_name: str
+
+    @field_validator("initial_name")
+    @classmethod
+    def initial_check(cls, value: str):
+        if len(value) == 2 or len(value) == 1:
+            return value
+        else:
+            raise ValueError('"Initial" String Must be 1 or 2 letters.')
