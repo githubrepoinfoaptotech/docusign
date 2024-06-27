@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 from service import sign_service
 from utils.middlewares import auth
-from utils.functions.validation_models import validate_request, AddSign
+from utils.functions.validation_models import validate_request, AddSign,EditSign
 signRoutes = Blueprint("signRoutes",__name__)
 
 
@@ -17,4 +17,5 @@ def add_sign():
 @auth.check_auth
 def get_sign():
     return sign_service.get_sign()
+
 

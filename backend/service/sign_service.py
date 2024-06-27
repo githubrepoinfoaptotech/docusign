@@ -48,3 +48,4 @@ def get_sign():
     except Exception as e:
         print(e)
         return make_response(jsonify({"message": "Error Happend", "status": False}), 500)
+
