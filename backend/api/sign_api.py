@@ -11,3 +11,10 @@ signRoutes = Blueprint("signRoutes",__name__)
 def add_sign():
     data = request.get_json()
     return sign_service.add_sign(data)
+
+
+@signRoutes.get("/getSign")
+@auth.check_auth
+def get_sign():
+    return sign_service.get_sign()
+
