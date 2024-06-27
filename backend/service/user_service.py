@@ -6,7 +6,9 @@ from utils.functions.jwt_functions import generate_token
 from models.Document import Document
 from uuid import UUID
 from utils.functions import mailfunctions
+
 import random
+
 def register(data):
     user = User.query.filter_by(username=data["username"]).first()
     print(user)
@@ -30,7 +32,7 @@ def register(data):
                 link=mylink,
                 otp=otp
             )
-        html=email_content
+        html = email_content
         subject = "Registration Successfull!"
         to_address = data["username"]
         receiver_username = data["fullname"]

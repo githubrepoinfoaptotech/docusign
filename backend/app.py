@@ -1,6 +1,6 @@
 from flask import Flask
 from database import dbconfig
-from database.db import db
+from database.db import db, Base
 from database.checkDbConnection import check_db_connection
 from api import user_api, sign_api, status_api, document_api
 from flask_cors import CORS
@@ -42,3 +42,4 @@ with app.app_context():
 # Remove the if __name__ == '__main__' block
 if __name__ == '__main__':
     app.run(debug=True, port=8080)
+

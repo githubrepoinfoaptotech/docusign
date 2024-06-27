@@ -12,9 +12,10 @@ def add_sign():
     data = request.get_json()
     return sign_service.add_sign(data)
 
-@signRoutes.post("/edit")
+
+@signRoutes.get("/getSign")
 @auth.check_auth
-@validate_request(EditSign)
-def edit_sign():
-    data = request.get_json()
-    return sign_service.edit_sign(data)
+def get_sign():
+    return sign_service.get_sign()
+
+

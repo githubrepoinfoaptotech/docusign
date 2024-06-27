@@ -45,3 +45,4 @@ def hash_password(mapper, connect, target):
     if target.password:
         target.password = generate_password_hash(target.password, method="pbkdf2:sha256", salt_length=18)
 
+
